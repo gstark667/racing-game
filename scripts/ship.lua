@@ -22,7 +22,7 @@ function setup(scene, object)
     scene_set_normal(scene, object, "ship_normal.png")
     scene_set_pbr(scene, object, "ship_pbr.png")
     physics_init_box(scene, object, 5, 1.0, 0.5, 3.0)
-    physics_set_angular_factor(object, 0.02)
+    physics_set_angular_factor(object, 0.04)
 
     -- set up the flame models
     left_flame = scene_add_gameobject(scene)
@@ -146,7 +146,7 @@ function update(scene, object, delta)
     x_vel, y_vel, z_vel = gameobject_unrotate_vector(object, physics_get_velocity(object))
     vel = math.sqrt(x_vel * x_vel + y_vel * y_vel + z_vel * z_vel)
 
-    x_axis_rot = pid(object, "rot", y_rot - x_axis_in, delta, 60.0, 0.0, -1.0)
+    x_axis_rot = pid(object, "rot", y_rot - x_axis_in, delta, 80.0, 0.0, -1.0)
     z_axis = pid(object, "zvel", z_axis_in - z_vel, delta, 3.0, 0.0, 0.0)
     x_axis = pid(object, "xvel", x_axis_in - x_vel, delta, 1.0, 0.0, 0.0)
 

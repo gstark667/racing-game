@@ -6,13 +6,13 @@ function setup(scene, object)
     gameobject_scale(object, 0.1)
     --scene_set_model(scene, object, "sphere.dae")
 
-    gameobject_set_number(object, "height", 1.0)
+    gameobject_set_number(object, "height", 1.2)
     gameobject_set_number(object, "total_err", 0.0)
-    gameobject_set_number(object, "last_err", -1.0)
+    gameobject_set_number(object, "last_err", 0.0)
 end
 
 function update(scene, object, delta)
-    kp, ki, kd = 60.0, 0.0, 2.0
+    kp, ki, kd = 60.0, 0.0, 3.0
     x, y, z = gameobject_get_global_transform(object)
     tx, ty, tz = gameobject_rotate_vector(object, 0, -4, 0)
     hit, dist = physics_ray_test(scene, x, y, z, x + tx, y + ty, z + tz)
