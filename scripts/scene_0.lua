@@ -38,7 +38,7 @@ function setup(scene, object)
     scene_set_pbr(scene, balls, "pbr_balls.png")
 
     ship = scene_add_gameobject(scene)
-    gameobject_transform(ship, 0, 0, 0)
+    gameobject_transform(ship, 0, 1.2, 0)
     scene_add_script(scene, ship, "ship.lua")
 
     --player = scene_add_gameobject(scene)
