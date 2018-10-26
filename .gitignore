@@ -1,5 +1,11 @@
 build
 winbuild
 octengine
+octengine.exe
 *.so
+*.dll
 *.swp
+CMakeCache.txt
+CMakeFiles
+Makefile
+cmake_install.cmake
