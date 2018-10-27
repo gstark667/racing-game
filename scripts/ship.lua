@@ -3,6 +3,7 @@ require("scene")
 require("physics")
 require("camera")
 require("light")
+require("audio")
 
 function setup(scene, object)
     -- set up the camera
@@ -101,6 +102,23 @@ function setup(scene, object)
     gameobject_set_integer(object, "br", br)
     scene_add_script(scene, br, "test.lua")
 
+    -- setup up the audio
+    source = audio_source_create(scene, middle_light, "jet.wav")
+    audio_source_play(source)
+    gameobject_set_integer(object, "source", source)
+
+    source = audio_source_create(scene, left_light, "jet.wav")
+    audio_source_play(source)
+    gameobject_set_integer(object, "lsource", source)
+
+    source = audio_source_create(scene, right_light, "jet.wav")
+    audio_source_play(source)
+    gameobject_set_integer(object, "rsource", source)
+
+    music = audio_source_create(scene, object, "c.wav")
+    audio_source_set_gain(music, 0.2)
+    audio_source_play(music)
+
     gameobject_set_number(object, "z_axis", 0.0)
     gameobject_set_number(object, "x_rot", 0.0)
 end
@@ -184,6 +202,19 @@ function update(scene, object, delta)
     light_set_brightness(middle_light, middle_value)
     gameobject_set_scale(right_flame, 1, 1, right_value)
     light_set_brightness(right_light, right_value * 2)
+
+    -- modulate the sound
+    source = gameobject_get_integer(object, "source")
+    lsource = gameobject_get_integer(object, "lsource")
+    rsource = gameobject_get_integer(object, "rsource")
+    pitch = math.abs(z_vel) * 0.02 + 1.0 + (math.random() * math.abs(z_vel) * 0.001)
+    vol = math.abs(z_force) * 0.20 + 0.7
+    audio_source_set_pitch(source, pitch)
+    audio_source_set_pitch(lsource, pitch + 0.3)
+    audio_source_set_pitch(rsource, pitch + 0.3)
+    audio_source_set_gain(source, vol)
+    audio_source_set_gain(lsource, vol)
+    audio_source_set_gain(rsource, vol)
 end
 
 function on_event(scene, object, name, value)

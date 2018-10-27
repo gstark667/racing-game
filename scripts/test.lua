@@ -12,7 +12,7 @@ function setup(scene, object)
 end
 
 function update(scene, object, delta)
-    kp, ki, kd = 50.0, 0.0, 3.0
+    kp, ki, kd = 70.0, 0.0, 3.0
     x, y, z = gameobject_get_global_transform(object)
     tx, ty, tz = gameobject_rotate_vector(object, 0, -4, 0)
     hit, dist = physics_ray_test(scene, x, y, z, x + tx, y + ty, z + tz)

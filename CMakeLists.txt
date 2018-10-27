@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.9)
 add_subdirectory(engine)
 
 set(BINARIES
-    octengine liboctengine.so camera.so gameobject.so light.so physics.so scene.so
+    octengine liboctengine.so camera.so gameobject.so light.so physics.so scene.so audio.so
 )
 
 ADD_CUSTOM_COMMAND(
@@ -48,8 +48,14 @@ ADD_CUSTOM_COMMAND(
     COMMAND cp engine/scene.so scene.so
 )
 
+ADD_CUSTOM_COMMAND(
+    OUTPUT audio.so
+    DEPENDS engine/audio.so
+    COMMAND cp engine/audio.so audio.so
+)
+
 ADD_CUSTOM_TARGET(
     binaries
     ALL
-    DEPENDS ${BINARIES} mainoctengine liboctengine gameobject scene physics camera light
+    DEPENDS ${BINARIES} mainoctengine liboctengine gameobject scene physics camera light audio
 )
