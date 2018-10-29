@@ -2,11 +2,19 @@ cmake_minimum_required(VERSION 3.9)
 
 add_subdirectory(engine)
 
+if(WIN32)
+ADD_CUSTOM_COMMAND(
+    OUTPUT octengine.exe
+    DEPENDS engine/octengine.exe
+    COMMAND cp engine/octengine.exe octengine.exe
+)
+else()
 ADD_CUSTOM_COMMAND(
     OUTPUT octengine
     DEPENDS engine/octengine
     COMMAND cp engine/octengine octengine
 )
+endif()
 
 ADD_CUSTOM_COMMAND(
     OUTPUT libs
