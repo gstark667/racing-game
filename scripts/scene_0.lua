@@ -1,3 +1,5 @@
+package.cpath = package.cpath .. ";?.dylib"
+
 require("scene")
 require("gameobject")
 require("physics")
