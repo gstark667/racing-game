@@ -2,8 +2,7 @@ build
 winbuild
 octengine
 octengine.exe
-*.so
-*.dll
+libs
 *.swp
 CMakeCache.txt
 CMakeFiles
