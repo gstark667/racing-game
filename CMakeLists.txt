@@ -21,6 +21,11 @@ ADD_CUSTOM_COMMAND(
     COMMAND mkdir libs
 )
 
+ADD_CUSTOM_COMMAND(
+    OUTPUT shaders
+    COMMAND mkdir shaders
+)
+
 foreach(lib ${LUALIBS})
 ADD_CUSTOM_COMMAND(
     OUTPUT libs/${lib}
@@ -30,8 +35,16 @@ ADD_CUSTOM_COMMAND(
 SET(BINARIES ${BINARIES} "libs/${lib}")
 endforeach()
 
+foreach(shader ${SHADERS})
+ADD_CUSTOM_COMMAND(
+    OUTPUT ${shader}
+    DEPENDS shaders engine/${shader}
+    COMMAND cp engine/${shader} ${shader}
+)
+endforeach()
+
 ADD_CUSTOM_TARGET(
     binaries
     ALL
-    DEPENDS ${BINARIES} libs
+    DEPENDS ${BINARIES} ${SHADERS} libs shaders
 )
