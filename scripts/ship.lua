@@ -115,6 +115,11 @@ function setup(scene, object)
     audio_source_play(source)
     gameobject_set_integer(object, "rsource", source)
 
+    hit_source = audio_source_create(scene, object, "hit.wav")
+    audio_source_set_loop(hit_source, false)
+    audio_source_set_gain(hit_source, 0.9)
+    gameobject_set_integer(object, "hit_source", hit_source)
+
     music = audio_source_create(scene, object, "c.wav")
     audio_source_set_gain(music, 0.2)
     audio_source_play(music)
@@ -223,4 +228,13 @@ function on_event(scene, object, name, value)
     elseif name == "x_look" or name == "y_look" then
         gameobject_set_number(object, name, value)
     end
+end
+
+function on_collision_enter(scene, object, other)
+    x, y, z = physics_get_velocity(object)
+    vel = math.sqrt(x*x + y*y + z*z)
+    source = gameobject_get_integer(object, "hit_source")
+    audio_source_set_gain(source, vel * 0.1)
+    audio_source_set_pitch(source, vel * 0.01 + 0.5)
+    audio_source_play(source)
 end

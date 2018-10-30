@@ -17,6 +17,11 @@ function setup(scene, object)
     --      end
     --    end
     --end
+    cube = scene_add_gameobject(scene)
+    scene_set_model(scene, cube, "cube.dae")
+    gameobject_scale(cube, 0.5, 0.5, 0.5)
+    gameobject_transform(cube, 0, 10, 0)
+    physics_init_box(scene, cube, 1, 0.5, 0.5, 0.5)
 
     --plane = scene_add_gameobject(scene)
     --scene_set_model(scene, plane, "plane.dae")
