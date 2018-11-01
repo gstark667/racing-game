@@ -17,11 +17,12 @@ function setup(scene, object)
 
     example = scene_add_gameobject(scene)
     gameobject_transform(example, 0, 0, 0)
-    scene_set_model(scene, example, "track_1.dae")
+    scene_set_model(scene, example, "track_2.dae")
     scene_set_texture(scene, example, "track_albedo.png")
     scene_set_normal(scene, example, "track_normal.png")
     scene_set_pbr(scene, example, "track_pbr.png")
     physics_init_mesh(scene, example, 0)
+    physics_set_rotation(example, -math.pi/2.0, 0, 0)
 
     ship = scene_add_gameobject(scene)
     gameobject_transform(ship, 0, 1.2, 0)
