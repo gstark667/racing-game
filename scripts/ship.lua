@@ -4,6 +4,7 @@ require("physics")
 require("camera")
 require("light")
 require("audio")
+require("ui")
 
 function setup(scene, object)
     -- set up the camera
@@ -121,7 +122,7 @@ function setup(scene, object)
     gameobject_set_integer(object, "hit_source", hit_source)
 
     music = audio_source_create(scene, object, "c.wav")
-    audio_source_set_gain(music, 0.2)
+    audio_source_set_gain(music, 0.6)
     audio_source_play(music)
 
     gameobject_set_number(object, "z_axis", 0.0)
@@ -163,11 +164,15 @@ end
 
 function update(scene, object, delta)
     x_axis_in = gameobject_get_number(object, "x_axis") * -2
-    z_axis_in = gameobject_get_number(object, "z_axis") * 50
+    z_axis_in = gameobject_get_number(object, "z_axis") * 60
 
     x_rot, y_rot, z_rot = gameobject_unrotate_vector(object, physics_get_angular_velocity(object))
     x_vel, y_vel, z_vel = gameobject_unrotate_vector(object, physics_get_velocity(object))
     vel = math.sqrt(x_vel * x_vel + y_vel * y_vel + z_vel * z_vel)
+
+    -- update the spedometer
+    spedometer = gameobject_get_integer(object, "speed_element")
+    ui_element_set_text(spedometer, "velocity: " .. math.sqrt(z_vel * z_vel + x_vel * x_vel + y_vel * y_vel))
 
     x_axis_rot = pid(object, "rot", y_rot - x_axis_in, delta, 80.0, 0.0, -1.0)
     z_axis = pid(object, "zvel", z_axis_in - z_vel, delta, 3.0, 0.0, 0.0)
@@ -234,7 +239,7 @@ function on_collision_enter(scene, object, other)
     x, y, z = physics_get_velocity(object)
     vel = math.sqrt(x*x + y*y + z*z)
     source = gameobject_get_integer(object, "hit_source")
-    audio_source_set_gain(source, vel * 0.1)
+    audio_source_set_gain(source, vel * 0.025)
     audio_source_set_pitch(source, vel * 0.01 + 0.5)
     audio_source_play(source)
 end
