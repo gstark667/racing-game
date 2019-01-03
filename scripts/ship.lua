@@ -172,7 +172,7 @@ function update(scene, object, delta)
 
     -- update the spedometer
     spedometer = gameobject_get_integer(object, "speed_element")
-    ui_element_set_text(spedometer, "velocity: " .. math.sqrt(z_vel * z_vel + x_vel * x_vel + y_vel * y_vel))
+    --ui_element_set_text(spedometer, "velocity: " .. math.sqrt(z_vel * z_vel + x_vel * x_vel + y_vel * y_vel))
 
     x_axis_rot = pid(object, "rot", y_rot - x_axis_in, delta, 80.0, 0.0, -1.0)
     z_axis = pid(object, "zvel", z_axis_in - z_vel, delta, 3.0, 0.0, 0.0)
